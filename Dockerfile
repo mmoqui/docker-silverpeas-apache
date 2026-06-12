@@ -1,6 +1,13 @@
-FROM ubuntu:jammy
+FROM ubuntu:noble
 
-MAINTAINER Miguel Moquillon "miguel.moquillon@silverpeas.org"
+LABEL name="Silverpeas Apache Reverse-Proxy"
+LABEL description="Image to run Apache as a TLS reverse-proxy for Silverpeas applications"
+LABEL vendor="Silverpeas"
+
+LABEL org.opencontainers.image.title="Silverpeas Apache Reverse-Proxy"
+LABEL org.opencontainers.image.description="Image to run Apache as a TLS reverse-proxy for Silverpeas applications"
+LABEL org.opencontainers.image.vendor="Silverpeas"
+LABEL org.opencontainers.image.authors="Miguel Moquillon <miguel.moquillon@silverpeas.org>"
 
 ENV TERM=xterm
 
@@ -27,7 +34,6 @@ COPY src/silverpeas.conf /etc/apache2/sites-available/
 COPY src/ssl/silverpeas-main /etc/apache2/ssl/silverpeas-main
 COPY src/ssl/silverpeas-stable /etc/apache2/ssl/silverpeas-stable
 COPY src/ssl/CA/rootCA.crt /usr/share/ca-certificates/home/
-COPY src/ssl/CA/rootCA.pem /usr/share/ca-certificates/home/
 COPY src/run.sh /usr/local/bin/
 
 RUN echo "home/rootCA.crt" >> /etc/ca-certificates.conf \
